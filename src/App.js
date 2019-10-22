@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import TaskList from "./TaskList";
+import AddTask from "./AddTask";
+
+export const initialTasks = [
+  {
+    id: 1,
+    name: "Ir a clase",
+    color: "red"
+  },
+  {
+    id: 2,
+    name: "Descansar",
+    color: "green"
+  }
+];
 
 function App() {
+
+  const [tasks, setTasks] = useState(initialTasks);
+
+  const addTask = taskName => setTasks(tasks.concat({
+    id: tasks.length + 1,
+    name: taskName,
+    color: "orange"
+  }));
+
+  console.log("render APP")
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TaskList tasks={tasks} />
+      <AddTask addTask={addTask} />
+    </>
   );
 }
 
